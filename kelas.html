@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelas & Character Building - Coach Sabran</title>
+    
+    <!-- Memanggil CSS Global -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- CSS Khusus untuk Halaman Kelas -->
+    <style>
+        .page-header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .page-header p {
+            color: var(--accent-color);
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Container Utama dengan Layout 2 Kolom (Kiri: Artikel, Kanan: Sidebar CTA) */
+        .class-container {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr; /* Kolom kiri lebih lebar dibanding kanan */
+            gap: 40px;
+        }
+
+        /* Bagian Pembukaan (Intro) */
+        .intro-box {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            margin-bottom: 40px;
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .intro-box h2 {
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+
+        .intro-box p {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        /* List Artikel (Kolom Kiri) */
+        .articles-section h3 {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .article-card {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            display: flex;
+            transition: transform 0.3s;
+        }
+
+        .article-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .article-img {
+            width: 220px;
+            object-fit: cover;
+        }
+
+        .article-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .article-meta {
+            font-size: 12px;
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .article-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            text-decoration: none;
+        }
+
+        .article-title:hover {
+            color: var(--primary-color);
+        }
+
+        .article-desc {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        /* Sidebar Sisi Kanan (CTA & Reminder) */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .cta-card {
+            background: linear-gradient(135deg, var(--primary-color), #b71c1c);
+            color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(211, 47, 47, 0.2);
+        }
+
+        .cta-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+
+        .cta-card p {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #f1f5f9;
+        }
+
+        .btn-cta {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--text-dark);
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+
+        .btn-cta:hover {
+            transform: scale(1.05);
+        }
+
+        .reminder-box {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+        }
+
+        .reminder-box h4 {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 10px;
+        }
+
+        .reminder-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .reminder-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .reminder-date {
+            font-size: 12px;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .reminder-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-top: 3px;
+        }
+
+        /* Responsif untuk Mobile */
+        @media (max-width: 900px) {
+            .class-container {
+                grid-template-columns: 1fr;
+            }
+            .article-card {
+                flex-direction: column;
+            }
+            .article-img {
+                width: 100%;
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP BAR & NAVBAR -->
+    <div class="top-bar">
+        <div class="top-bar-left"><span>Ikuti Sosial Media: @CoachSabran</span></div>
+        <div class="top-bar-right"><span>📞 Hubungi Kami: 0812-XXXX-XXXX</span></div>
+    </div>
+    <header>
+        <nav>
+            <a href="Mock-Up.html" class="logo">
+                <img src="Asset/Coach Sabran Fix.png" alt="Logo Coach Sabran">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="profil.html">Profil</a></li>
+                <li><a href="kelas.html" style="color: var(--accent-color);">Kelas</a></li>
+                <li><a href="properti.html">Properti</a></li>
+                <li><a href="jurnal.html">Jurnal</a></li>
+                <li><a href="event.html">Event</a></li>
+                <li><a href="pendaftaran.html" class="btn-nav">DAFTAR KELAS</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HEADER HALAMAN -->
+    <section class="page-header">
+        <h1>Kelas & Character Building</h1>
+        <p>Meningkatkan Kapasitas, Mental, dan Kualitas SDM</p>
+    </section>
+
+    <!-- CONTAINER UTAMA -->
+    <div class="class-container">
+        
+        <!-- KOLOM KIRI: PEMBUKAAN & 5 ARTIKEL TERAKHIR -->
+        <main>
+            <!-- Sedikit Pembukaan -->
+            <div class="intro-box">
+                <h2>Ruang Belajar & Pembinaan Karakter</h2>
+                <p>Selamat datang di pusat program pelatihan Coach Sabran. Melalui program <strong>Character Building</strong>, <strong>Public Speaking</strong>, dan peningkatan kompetensi SDM, kami berdedikasi untuk membantu Anda atau tim Anda bertransformasi menjadi pribadi yang percaya diri, berintegritas, dan siap menghadapi tantangan dunia profesional.</p>
+                <p>Berikut adalah rangkuman 5 artikel dan laporan kegiatan pelatihan terbaru yang telah kami selenggarakan bersama para peserta.</p>
+            </div>
+
+            <!-- List 5 Artikel Terakhir -->
+            <section class="articles-section">
+                <h3>Postingan & Kegiatan Terbaru</h3>
+
+                <!-- Artikel 1 -->
+                <div class="article-card">
+                    <img src="Asset/aichi-9.jpg" alt="Artikel" class="article-img">
+                    <div class="article-content">
+                        <span class="article-meta">Diposting oleh muhammad sabran | Membangun karakter anak Bangsa</span>
+                        <a href="#" class="article-title">Pertemuan Ke-8 LPK AICHI (09/14) MOTIVASI</a>
+                        <p class="article-desc">PERTEMUAN KE-9 LPK AICHI | TERUS BELAJAR, TERUS BERTUMBUH. Alhamdulillah, kembali dipertemukan dalam sesi motivasi...</p>
+                        <a href="#" class="btn-link">Baca selengkapnya &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Artikel 2 -->
+                <div class="article-card">
+                    <img src="Asset/aichi-8.jpg" alt="Artikel" class="article-img">
+                    <div class="article-content">
+                        <span class="article-meta">Diposting oleh muhammad sabran | Membangun karakter anak Bangsa</span>
+                        <a href="#" class="article-title">Pertemuan Ke-8 LPK AICHI (08/14)</a>
+                        <p class="article-desc">PERTEMUAN KE-8 LPK AICHI | BELAJAR, BERTANYA, DAN BERLATIH. Alhamdulillah, peserta sangat antusias...</p>
+                        <a href="#" class="btn-link">Baca selengkapnya &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Artikel 3 -->
+                <div class="article-card">
+                    <img src="Asset/aichi-7.jpg" alt="Artikel" class="article-img">
+                    <div class="article-content">
+                        <span class="article-meta">Diposting oleh muhammad sabran | Membangun karakter anak Bangsa</span>
+                        <a href="#" class="article-title">Pertemuan Ke-7 LPK AICHI (07/14)</a>
+                        <p class="article-desc">✨ Keseruan Pertemuan Ke-7 LPK AICHI. Alhamdulillah, kembali dipertemukan dalam ruang bertumbuh yang interaktif...</p>
+                        <a href="#" class="btn-link">Baca selengkapnya &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Artikel 4 -->
+                <div class="article-card">
+                    <img src="Asset/peng1.JPG" alt="Artikel" class="article-img">
+                    <div class="article-content">
+                        <span class="article-meta">Diposting oleh muhammad sabran | Training & Development</span>
+                        <a href="#" class="article-title">Pelatihan Public Speaking untuk Gen Z & Milenial</a>
+                        <p class="article-desc">Berbicara di depan umum tanpa rasa kaku atau minder. Tips dan trik langsung praktik bersama Coach Sabran...</p>
+                        <a href="#" class="btn-link">Baca selengkapnya &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Artikel 5 -->
+                <div class="article-card">
+                    <img src="Asset/peng7.jpg" alt="Artikel" class="article-img">
+                    <div class="article-content">
+                        <span class="article-meta">Diposting oleh muhammad sabran | Workshop</span>
+                        <a href="#" class="article-title">Seminar Nasional: Membangun SDM yang Kompeten</a>
+                        <p class="article-desc">Mengembangkan kemampuan komunikasi, kepemimpinan, dan profesionalisme di era modern...</p>
+                        <a href="#" class="btn-link">Baca selengkapnya &rarr;</a>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+
+        <!-- KOLOM KANAN: SIDEBAR (REMINDER & CTA) -->
+        <aside class="sidebar">
+            
+            <!-- Kotak CTA Pendaftaran -->
+            <div class="cta-card">
+                <h3>📅 Daftar Kelas Terdekat</h3>
+                <p>Ingin mengasah kemampuan berbicara di depan umum atau mengikuti program pembinaan karakter eksklusif?</p>
+                <a href="#" class="btn-cta">Amankan Kursi Anda</a>
+            </div>
+
+            <!-- Kotak Reminder Kegiatan Mendatang -->
+            <div class="reminder-box">
+                <h4>Pengingat Kegiatan</h4>
+                
+                <div class="reminder-item">
+                    <span class="reminder-date">24 Oktober 2026</span>
+                    <div class="reminder-title">Seminar Pemuda Berkarakter</div>
+                    <p style="font-size: 12px; color: var(--text-light); margin-top: 2px;">Hotel Claro Makassar</p>
+                </div>
+
+                <div class="reminder-item">
+                    <span class="reminder-date">05 November 2026</span>
+                    <div class="reminder-title">Gathering & Mentoring Batch #12</div>
+                    <p style="font-size: 12px; color: var(--text-light); margin-top: 2px;">I'M SMART Center</p>
+                </div>
+
+                <div class="reminder-item">
+                    <span class="reminder-date">20 November 2026</span>
+                    <div class="reminder-title">Workshop Public Speaking Online (WA)</div>
+                    <p style="font-size: 12px; color: var(--text-light); margin-top: 2px;">Live via WhatsApp & Zoom</p>
+                </div>
+            </div>
+
+        </aside>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer" style="margin-top: 0;">
+        <div class="footer-container">
+            <div class="footer-col">
+                <img src="Asset/Coach Sabran Fix.png" alt="Logo Coach Sabran" class="footer-logo">
+                <p>Ruang belajar untuk meningkatkan kapasitas dan kualitas sumber daya manusia secara berkesinambungan melalui program Character Building dan Properti Syariah.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Tautan Cepat</h3>
+                <ul>
+                    <li><a href="profil.html">Tentang Kami</a></li>
+                    <li><a href="kelas.html">Program Kelas</a></li>
+                    <li><a href="index.html#properti">Properti Syariah</a></li>
+                    <li><a href="index.html#jurnal">Jurnal Harian</a></li>
+                    <li><a href="index.html#event">Event Terdekat</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Hubungi Kami</h3>
+                <ul class="contact-info">
+                    <li>📍 Jl. Boulevard Raya No. 123, Panakkukang, Kota Makassar, Sulawesi Selatan</li>
+                    <li>📞 0812-XXXX-XXXX</li>
+                    <li>✉️ info@muhammad-sabran.com</li>
+                </ul>
+                <div class="social-links">
+                    <a href="#">Instagram</a>
+                    <a href="#">Facebook</a>
+                    <a href="#">YouTube</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Coach Sabran. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

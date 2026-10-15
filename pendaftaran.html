@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendaftaran Kelas - Coach Sabran</title>
+    
+    <!-- Memanggil CSS Global -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- CSS Khusus untuk Halaman Pendaftaran -->
+    <style>
+        .page-header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .page-header p {
+            color: var(--accent-color);
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .form-container {
+            max-width: 700px;
+            margin: 60px auto;
+            padding: 40px;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .form-container h2 {
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .form-container p.subtitle {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            height: 120px;
+        }
+
+        .btn-submit-wa {
+            display: block;
+            width: 100%;
+            background-color: #25d366; /* Warna khas WhatsApp */
+            color: var(--white);
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .btn-submit-wa:hover {
+            background-color: #20ba5a;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP BAR & NAVBAR -->
+    <div class="top-bar">
+        <div class="top-bar-left"><span>Ikuti Sosial Media: @CoachSabran</span></div>
+        <div class="top-bar-right"><span>📞 Hubungi Kami: 0812-XXXX-XXXX</span></div>
+    </div>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <img src="Asset/Coach Sabran Fix.png" alt="Logo Coach Sabran">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="profil.html">Profil</a></li>
+                <li><a href="kelas.html">Kelas</a></li>
+                <li><a href="properti.html">Properti</a></li>
+                <li><a href="jurnal.html">Jurnal</a></li>
+                <li><a href="event.html">Event</a></li>
+                <li><a href="pendaftaran.html" class="btn-nav">DAFTAR KELAS</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HEADER HALAMAN -->
+    <section class="page-header">
+        <h1>Formulir Pendaftaran</h1>
+        <p>Amankan Kursi Anda & Terhubung Langsung dengan Admin</p>
+    </section>
+
+    <!-- FORMULIR PENDAFTARAN -->
+    <div class="form-container">
+        <h2>Pilih & Daftar Program Kelas</h2>
+        <p class="subtitle">Silakan isi data diri Anda di bawah ini. Tombol kirim akan mengarahkan Anda otomatis ke WhatsApp Admin.</p>
+
+        <form id="waForm" onsubmit="sendToWhatsApp(event)">
+            
+            <div class="form-group">
+                <label for="nama">Nama Lengkap *</label>
+                <input type="text" id="nama" class="form-control" placeholder="Masukkan nama lengkap Anda" required>
+            </div>
+
+            <div class="form-group">
+                <label for="whatsapp">Nomor WhatsApp (Aktif) *</label>
+                <input type="tel" id="whatsapp" class="form-control" placeholder="Contoh: 081234567890" required>
+            </div>
+
+            <div class="form-group">
+                <label for="program">Pilih Program / Kelas *</label>
+                <select id="program" class="form-control" required>
+                    <option value="" disabled selected>-- Pilih Program yang Ingin Diikuti --</option>
+                    <option value="Character Building & Leadership">Character Building & Leadership</option>
+                    <option value="Workshop Public Speaking">Workshop Public Speaking</option>
+                    <option value="Kelas Online (Via WA) Public Speaking">Kelas Online (Via WA) Public Speaking</option>
+                    <option value="Seminar Pemuda Berkarakter">Seminar Pemuda Berkarakter</option>
+                    <option value="Konsultasi Properti Syariah">Konsultasi Properti Syariah</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="catatan">Catatan Tambahan (Opsional)</label>
+                <textarea id="catatan" class="form-control" placeholder="Tuliskan pertanyaan atau informasi tambahan jika ada..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit-wa">
+                📱 Kirim Pendaftaran via WhatsApp
+            </button>
+        </form>
+    </div>
+
+    <!-- SCRIPT OTOMATIS WHATSAPP -->
+    <script>
+        function sendToWhatsApp(event) {
+            event.preventDefault(); // Mencegah form agar tidak reload halaman
+
+            // Ambil data dari form
+            const nama = document.getElementById('nama').value;
+            const whatsapp = document.getElementById('whatsapp').value;
+            const program = document.getElementById('program').value;
+            const catatan = document.getElementById('catatan').value;
+
+            // NOMOR WHATSAPP ADMIN (Ganti nomor di bawah dengan nomor WhatsApp admin Anda, awali dengan kode negara misal 628...)
+            const adminPhone = "6281342999083"; 
+
+            // Susun format pesan yang rapi
+            const message = `Halo Admin, saya ingin mendaftar kelas.%0A%0A` +
+                            `*Nama:* ${nama}%0A` +
+                            `*No. WhatsApp:* ${whatsapp}%0A` +
+                            `*Pilihan Program:* ${program}%0A` +
+                            `*Catatan:* ${catatan ? catatan : '-'}`;
+
+            // Buka link WhatsApp
+            const waUrl = `https://wa.me/${adminPhone}?text=${message}`;
+            window.open(waUrl, '_blank');
+        }
+    </script>
+
+    <!-- FOOTER -->
+    <footer class="footer" style="margin-top: 60px;">
+        <div class="footer-container">
+            <div class="footer-col">
+                <img src="Asset/Coach Sabran Fix.png" alt="Logo Coach Sabran" class="footer-logo">
+                <p>Ruang belajar untuk meningkatkan kapasitas dan kualitas sumber daya manusia secara berkesinambungan melalui program Character Building dan Properti Syariah.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Tautan Cepat</h3>
+                <ul>
+                    <li><a href="profil.html">Tentang Kami</a></li>
+                    <li><a href="kelas.html">Program Kelas</a></li>
+                    <li><a href="properti.html">Properti Syariah</a></li>
+                    <li><a href="jurnal.html">Jurnal Harian</a></li>
+                    <li><a href="event.html">Event Terdekat</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Hubungi Kami</h3>
+                <ul class="contact-info">
+                    <li>📍 Jl. Boulevard Raya No. 123, Panakkukang, Kota Makassar, Sulawesi Selatan</li>
+                    <li>📞 0812-XXXX-XXXX</li>
+                    <li>✉️ info@muhammad-sabran.com</li>
+                </ul>
+                <div class="social-links">
+                    <a href="#">Instagram</a>
+                    <a href="#">Facebook</a>
+                    <a href="#">YouTube</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Coach Sabran. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

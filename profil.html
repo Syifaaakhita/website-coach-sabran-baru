@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil - Coach Sabran</title>
+    
+    <!-- Memanggil CSS Global -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- CSS Khusus untuk Halaman Profil -->
+    <style>
+        .page-header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 70px 20px;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .page-header p {
+            color: var(--accent-color);
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Container Biografi Utama */
+        .about-container {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-image {
+            flex: 1;
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            object-fit: cover;
+        }
+        
+        /* Aksen kotak kuning di belakang foto */
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: 20px;
+            bottom: 20px;
+            border: 4px solid var(--accent-color);
+            border-radius: 12px;
+            z-index: -1;
+        }
+
+        .about-content {
+            flex: 1.2;
+        }
+
+        .about-content h2 {
+            font-size: 2rem;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+
+        .about-content p {
+            color: var(--text-light);
+            margin-bottom: 15px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        /* Highlight Section (Perjalanan Karier) */
+        .journey-section {
+            background-color: var(--white);
+            padding: 80px 20px;
+            margin-top: 40px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .grid-journey {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .journey-card {
+            background: var(--bg-light);
+            padding: 40px 30px;
+            border-radius: 10px;
+            border-top: 4px solid var(--primary-color);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            transition: transform 0.3s;
+        }
+
+        .journey-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .journey-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .journey-card p {
+            color: var(--text-light);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* Bidang Keahlian (Skills Tag) */
+        .skills-section {
+            max-width: 1000px;
+            margin: 80px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .skills-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .skill-tag {
+            background-color: var(--white);
+            color: var(--text-dark);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .skill-tag:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+        }
+
+        /* Kutipan Gaya Training */
+        .quote-section {
+            background-image: linear-gradient(rgba(17, 24, 39, 0.8), rgba(17, 24, 39, 0.9)), url('https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 80px 20px;
+            text-align: center;
+            color: var(--white);
+            margin-top: 60px;
+        }
+
+        .quote-box {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .quote-box h3 {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .quote-box p.quote-text {
+            font-size: 1.8rem;
+            font-style: italic;
+            line-height: 1.5;
+            margin-bottom: 30px;
+        }
+
+        .training-steps {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            font-weight: bold;
+            color: #e2e8f0;
+            margin-bottom: 30px;
+        }
+
+        .training-steps span {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 5px;
+        }
+
+        /* Responsif untuk Mobile */
+        @media (max-width: 768px) {
+            .about-container { flex-direction: column; gap: 40px; }
+            .about-image::before { display: none; }
+            .page-header h1 { font-size: 2rem; }
+            .quote-box p.quote-text { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP BAR & NAVBAR -->
+    <div class="top-bar">
+        <div class="top-bar-left"><span>Ikuti Sosial Media: @CoachSabran</span></div>
+        <div class="top-bar-right"><span>📞 Hubungi Kami: 0812-XXXX-XXXX</span></div>
+    </div>
+    <header>
+        <nav>
+            <a href="Mock-Up.html" class="logo">
+                <img src="Asset/Coach Sabran Fix.png" alt="Logo Coach Sabran">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="profil.html" style="color: var(--accent-color);">Profil</a></li>
+                <li><a href="kelas.html">Kelas</a></li>
+                <li><a href="properti.html">Properti</a></li>
+                <li><a href="jurnal.html">Jurnal</a></li>
+                <li><a href="event.html">Event</a></li>
+                <li><a href="pendaftaran.html" class="btn-nav">DAFTAR KELAS</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HEADER HALAMAN -->
+    <section class="page-header">
+        <h1>Muhammad Sabran</h1>
+        <p>Achievement Motivator | Public Speaking Coach | Master Trainer</p>
+    </section>
+
+    <!-- KONTEN TENTANG (BIOGRAFI) -->
+    <section class="about-container">
+        <div class="about-image">
+            <!-- Ganti dengan foto Coach Sabran -->
+            <img src="Asset/CoachSabran.jpg" alt="Foto Coach Sabran">
+        </div>
+        <div class="about-content">
+            <h2>Dari Pengalaman Menjadi Keahlian</h2>
+            <p>Sejak tahun 2006, Coach Sabran telah berpengalaman berbicara di hadapan ratusan ribu peserta. Selama lebih dari satu dekade, beliau aktif berbagi ilmu melalui seminar, workshop, training motivasi, public speaking, bedah buku, dialog kemahasiswaan, hingga coaching program kepemimpinan.</p>
+            <p>Berawal dari penyiar di Radio Al-Ikhwan 101,9 FM, pengalaman Coach Sabran terus terasah sebagai pembicara, MC, dan trainer. Pada akhir tahun 2017, beliau secara resmi mendapatkan sertifikasi Coach dari <strong>Synergy Coach Indonesia</strong>.</p>
+            <p>Hingga kini, beliau telah memberikan training di lebih dari 20 kota di Indonesia dengan gaya penyampaian yang dikenal <strong>sederhana, komunikatif, aplikatif, dan mudah dipraktikkan</strong> oleh berbagai kalangan—mulai dari pelajar, mahasiswa, komunitas, instansi, hingga perusahaan.</p>
+        </div>
+    </section>
+
+    <!-- PERJALANAN KARIER (GRID) -->
+    <section class="journey-section">
+        <div class="section-title">
+            <h2>Perjalanan & Dedikasi</h2>
+            <p>Pengalaman panjang di berbagai sektor yang memperkaya wawasan kepemimpinan, komunikasi, dan pelayanan.</p>
+        </div>
+        <div class="grid-journey">
+            <!-- Kartu 1 -->
+            <div class="journey-card">
+                <h3>Karier Profesional & Korporasi</h3>
+                <p>Memiliki rekam jejak korporasi, salah satunya dipercaya sebagai Trainer & Service Manager di PT. Megahputra Sejahtera (Suzuki Mobil) pada 2012–2017. Pengalaman ini memberikan perspektif luas tentang pelayanan prima dan teamwork. Beliau juga aktif di bidang Properti Syariah (2020-2023) untuk membantu masyarakat memiliki hunian sesuai syariat tanpa riba.</p>
+            </div>
+            <!-- Kartu 2 -->
+            <div class="journey-card">
+                <h3>Membangun I'M SMART INDONESIA</h3>
+                <p>Berangkat dari kecintaan terhadap dunia pengembangan diri, pada 11 Juni 2013 Coach Sabran mendirikan I'M SMART INDONESIA. Ini adalah wadah bagi siapapun yang ingin belajar dan bertumbuh dalam public speaking dan peningkatan SDM, dengan metode pembelajaran yang mewajibkan praktik di kehidupan nyata.</p>
+            </div>
+            <!-- Kartu 3 -->
+            <div class="journey-card">
+                <h3>Dunia Filantropi & Fundraising</h3>
+                <p>Memanfaatkan keahlian komunikasinya, Coach Sabran pernah menjabat sebagai Presenter dan Koordinator Fundraising di BWA (Badan Wakaf Al-Qur'an) Cabang Makassar (2018-2020) untuk menyampaikan pesan kebaikan secara persuasif. Sejak awal 2024, beliau kembali dipercaya mengabdi sebagai Branch Manager BWA Cabang Makassar.</p>
+            </div>
+        </div>
+    </section>
+
+<!-- GALERI KEGIATAN -->
+    <section class="gallery-section">
+        <div class="section-title">
+            <h2>Galeri Kegiatan & Dokumentasi</h2>
+            <p>Kumpulan momen dari berbagai kegiatan training, seminar, dan workshop yang telah dilaksanakan oleh Coach Sabran di berbagai kota.</p>
+        </div>
+        
+        <div class="gallery-grid">
+            <!-- Foto 1: Presentasi Suzuki / Korporasi -->
+            <div class="gallery-item">
+                <img src="Asset/peng1.JPG" alt="Training Motivasi">
+                <div class="gallery-overlay">
+                    <div class="gallery-text">
+                        <h3>Corporate Training</h3>
+                        <p>Berbagi motivasi dan pengalaman pelayanan prima di hadapan tim korporasi dan pelanggan.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Foto 2: Kolase Kegiatan -->
+            <div class="gallery-item">
+                <img src="Asset/peng2.jpg" alt="Workshop Public Speaking">
+                <div class="gallery-overlay">
+                    <div class="gallery-text">
+                        <h3>Public Speaking & MC</h3>
+                        <p>Memandu acara, membawakan presentasi, dan memberikan penghargaan di berbagai panggung inspiratif.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Foto 3: Pembicara Tamu / Panelis -->
+            <div class="gallery-item">
+                <img src="Asset/peng3.jpg" alt="Kegiatan LPK AICHI">
+                <div class="gallery-overlay">
+                    <div class="gallery-text">
+                        <h3>Diskusi Panel & Seminar</h3>
+                        <p>Menjadi narasumber ahli untuk memberikan wawasan dan perspektif baru dalam forum diskusi.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Foto 4: Pelatihan Peserta Berseragam (Kiri Bawah) -->
+            <div class="gallery-item">
+                <img src="Asset/peng4.jpg" alt="Sosialisasi Properti Syariah">
+                <div class="gallery-overlay">
+                    <div class="gallery-text">
+                        <h3>Character Building</h3>
+                        <p>Membangun mental disiplin dan karakter tangguh bersama peserta dari berbagai institusi.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Foto 5: Foto di Pesawat Merpati -->
+            <div class="gallery-item">
+                <img src="Asset/peng6.JPG" alt="Kegiatan BWA Makassar">
+                <div class="gallery-overlay">
+                    <div class="gallery-text">
+                        <h3>Perjalanan Inspiratif</h3>
+                        <p>Berkeliling ke berbagai daerah dan instansi untuk menebarkan semangat perubahan positif.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Foto 6: Seminar Skala Besar (Kanan Bawah) -->
+            <div class="gallery-item">
+                <img src="Asset/peng7.jpg" alt="Private Coaching">
+                <div class="gallery-overlay">
+                    <div class="gallery-text">
+                        <h3>Seminar Nasional</h3>
+                        <p>Memotivasi dan menginspirasi ratusan peserta dalam ruangan besar dengan energi yang maksimal.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BIDANG KEAHLIAN (SKILLS TAG) -->
+    <section class="skills-section">
+        <div class="section-title">
+            <h2>Bidang Keahlian</h2>
+        </div>
+        <div class="skills-wrapper">
+            <span class="skill-tag">Public Speaking</span>
+            <span class="skill-tag">Communication Skills</span>
+            <span class="skill-tag">Achievement Motivation</span>
+            <span class="skill-tag">Personal Development</span>
+            <span class="skill-tag">Leadership & Character Building</span>
+            <span class="skill-tag">Confidence Building</span>
+            <span class="skill-tag">Presentation Skills</span>
+            <span class="skill-tag">MC & Master of Ceremony</span>
+            <span class="skill-tag">Training for Trainer</span>
+            <span class="skill-tag">Storytelling</span>
+            <span class="skill-tag">Motivational Speaking</span>
+            <span class="skill-tag">Coaching & Mentoring</span>
+        </div>
+    </section>
+
+    <!-- GAYA TRAINING & QUOTE -->
+    <section class="quote-section">
+        <div class="quote-box">
+            <h3>Gaya Training Coach Sabran</h3>
+            <div class="training-steps">
+                <span>Belajar</span> ➔ <span>Berlatih</span> ➔ <span>Mendapatkan Feedback</span> ➔ <span>Memperbaiki</span> ➔ <span>Berani Tampil</span>
+            </div>
+            <p class="quote-text">"Public Speaking bukan tentang menjadi sempurna. Public Speaking adalah tentang berani menyampaikan pesan dan memberikan manfaat kepada orang lain."</p>
+            <p style="font-weight: bold; color: var(--accent-color); font-size: 1.2rem; margin-top: 20px;">
+                Berani Bicara. Berani Tampil. Berani Bertumbuh. Berani Memberi Dampak.
+            </p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer" style="margin-top: 0;">
+        <div class="footer-container">
+            <div class="footer-col">
+                <img src="Asset/Coach Sabran Fix.png" alt="Logo Coach Sabran" class="footer-logo">
+                <p>Ruang belajar untuk meningkatkan kapasitas dan kualitas sumber daya manusia secara berkesinambungan melalui program Character Building dan Properti Syariah.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Tautan Cepat</h3>
+                <ul>
+                    <li><a href="profil.html">Tentang Kami</a></li>
+                    <li><a href="index.html#kelas">Program Kelas</a></li>
+                    <li><a href="index.html#properti">Properti Syariah</a></li>
+                    <li><a href="index.html#jurnal">Jurnal Harian</a></li>
+                    <li><a href="index.html#event">Event Terdekat</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Hubungi Kami</h3>
+                <ul class="contact-info">
+                    <li>📍 Jl. Boulevard Raya No. 123, Panakkukang, Kota Makassar, Sulawesi Selatan</li>
+                    <li>📞 0812-XXXX-XXXX</li>
+                    <li>✉️ info@muhammad-sabran.com</li>
+                </ul>
+                <div class="social-links">
+                    <a href="#">Instagram</a>
+                    <a href="#">Facebook</a>
+                    <a href="#">YouTube</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Coach Sabran. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event & Jadwal - Coach Sabran</title>
+    
+    <!-- Memanggil CSS Global -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- CSS Khusus untuk Halaman Event -->
+    <style>
+        .page-header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .page-header p {
+            color: var(--accent-color);
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .event-container {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .section-title-main {
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            margin-bottom: 30px;
+            border-left: 5px solid var(--primary-color);
+            padding-left: 15px;
+        }
+
+        /* SECTION 1: 3 Poster Event Mendatang */
+        .poster-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .poster-card {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+            border: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .poster-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .poster-img {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+        }
+
+        .poster-content {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            justify-content: space-between;
+        }
+
+        .poster-date {
+            font-size: 12px;
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .poster-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .poster-desc {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .btn-register {
+            display: block;
+            text-align: center;
+            background-color: var(--accent-color);
+            color: var(--text-dark);
+            padding: 12px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .btn-register:hover {
+            background-color: #f5b900;
+        }
+
+        /* SECTION 2: Artikel Event Berjalan/Berlalu */
+        .past-events-section {
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            margin-bottom: 80px;
+        }
+
+        .past-event-item {
+            display: flex;
+            gap: 25px;
+            padding: 25px 0;
+            border-bottom: 1px solid #f1f5f9;
+            align-items: center;
+        }
+
+        .past-event-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .past-event-img {
+            width: 240px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .past-event-content {
+            flex: 1;
+        }
+
+        .past-event-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .past-event-title:hover {
+            color: var(--primary-color);
+        }
+
+        .past-event-desc {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        /* SECTION 3: Testimoni Peserta */
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .testimonial-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: relative;
+            border-top: 4px solid var(--accent-color);
+        }
+
+        .testimonial-text {
+            font-size: 14px;
+            color: var(--text-light);
+            line-height: 1.8;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            font-size: 1rem;
+            color: var(--text-dark);
+            margin-bottom: 2px;
+        }
+
+        .author-info p {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        /* Responsif Mobile */
+        @media (max-width: 768px) {
+            .past-event-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .past-event-img {
+                width: 100%;
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP BAR & NAVBAR -->
+    <div class="top-bar">
+        <div class="top-bar-left"><span>Ikuti Sosial Media: @CoachSabran</span></div>
+        <div class="top-bar-right"><span>📞 Hubungi Kami: 0812-XXXX-XXXX</span></div>
+    </div>
+    <header>
+        <nav>
+            <a href="Mock-Up.html" class="logo">
+                <img src="Asset/Coach Sabran Fix.png" alt="Logo Coach Sabran">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="profil.html">Profil</a></li>
+                <li><a href="kelas.html">Kelas</a></li>
+                <li><a href="properti.html">Properti</a></li>
+                <li><a href="jurnal.html">Jurnal</a></li>
+                <li><a href="event.html" style="color: var(--accent-color);">Event</a></li>
+                <li><a href="pendaftaran.html" class="btn-nav">DAFTAR KELAS</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HEADER HALAMAN -->
+    <section class="page-header">
+        <h1>My Event & Jadwal</h1>
+        <p>Ikuti Seminar, Workshop, & Program Pelatihan Eksklusif</p>
+    </section>
+
+    <!-- CONTAINER UTAMA -->
+    <div class="event-container">
+        
+        <!-- SECTION 1: 3 POSTER EVENT MENDATANG -->
+        <h2 class="section-title-main">Agenda & Kelas Mendatang</h2>
+        <div class="poster-grid">
+            
+            <!-- Poster 1 -->
+            <div class="poster-card">
+                <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=800&auto=format&fit=crop" alt="Poster 1" class="poster-img">
+                <div class="poster-content">
+                    <div>
+                        <span class="poster-date">📍 24 Oktober 2026 | Hotel Claro Makassar</span>
+                        <h3 class="poster-title">Seminar Pemuda Berkarakter & Leadership</h3>
+                        <p class="poster-desc">Membangun mental tangguh dan jiwa kepemimpinan bagi generasi muda di era digital.</p>
+                    </div>
+                    <a href="#" class="btn-register">Daftar Sekarang</a>
+                </div>
+            </div>
+
+            <!-- Poster 2 -->
+            <div class="poster-card">
+                <img src="https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?q=80&w=800&auto=format&fit=crop" alt="Poster 2" class="poster-img">
+                <div class="poster-content">
+                    <div>
+                        <span class="poster-date">📍 05 November 2026 | I'M SMART Center</span>
+                        <h3 class="poster-title">Gathering & Mentoring Batch #12</h3>
+                        <p class="poster-desc">Sesi eksklusif bedah kasus public speaking dan teknik komunikasi persuasif bersama Coach Sabran.</p>
+                    </div>
+                    <a href="#" class="btn-register">Daftar Sekarang</a>
+                </div>
+            </div>
+
+            <!-- Poster 3 -->
+            <div class="poster-card">
+                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=800&auto=format&fit=crop" alt="Poster 3" class="poster-img">
+                <div class="poster-content">
+                    <div>
+                        <span class="poster-date">📍 20 November 2026 | Live via WhatsApp & Zoom</span>
+                        <h3 class="poster-title">Workshop Public Speaking Online (WA)</h3>
+                        <p class="poster-desc">Kuasai panggung dari rumah! Promo spesial untuk pendaftar minggu ini.</p>
+                    </div>
+                    <a href="#" class="btn-register">Daftar Sekarang</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- SECTION 2: ARTIKEL KELAS / EVENT YANG SUDAH BERJALAN -->
+        <section class="past-events-section">
+            <h2 class="section-title-main" style="margin-bottom: 20px;">Dokumentasi Event & Kelas Berlalu</h2>
+            
+            <!-- Event 1 -->
+            <div class="past-event-item">
+                <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=600&auto=format&fit=crop" alt="Event Berlalu" class="past-event-img">
+                <div class="past-event-content">
+                    <span style="font-size: 11px; color: var(--primary-color); font-weight: bold;">Juni 2026 | Selesai</span>
+                    <a href="#" class="past-event-title">Workshop Public Speaking Juni 2026</a>
+                    <p class="past-event-desc">Dapatkan potongan harga khusus untuk 10 pendaftar pertama. Suasana pelatihan sangat interaktif dan penuh antusiasme dari peserta...</p>
+                    <a href="#" class="btn-link">Lihat Dokumentasi &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Event 2 -->
+            <div class="past-event-item">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=600&auto=format&fit=crop" alt="Event Berlalu" class="past-event-img">
+                <div class="past-event-content">
+                    <span style="font-size: 11px; color: var(--primary-color); font-weight: bold;">Oktober 2025 | Selesai</span>
+                    <a href="#" class="past-event-title">Kelas Online (Via WA) Special Edition Bersama Coach Sabran</a>
+                    <p class="past-event-desc">Promo spesial kelas online public speaking yang diikuti oleh peserta dari berbagai kota di luar Sulawesi Selatan...</p>
+                    <a href="#" class="btn-link">Lihat Dokumentasi &rarr;</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: TESTIMONI PESERTA -->
+        <h2 class="section-title-main">Apa Kata Alumni & Peserta?</h2>
+        <div class="testimonial-grid">
+            
+            <!-- Testimoni 1 -->
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Mengikuti training bersama Coach Sabran membuka mata saya bahwa public speaking itu bukan bakat lahir, tapi keterampilan yang bisa dilatih. Materinya sangat aplikatif!"</p>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" alt="Alumni" class="author-avatar">
+                    <div class="author-info">
+                        <h4>Andi Siti Rahma</h4>
+                        <p>Mahasiswa & Alumni Public Speaking Batch 10</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimoni 2 -->
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Gaya penyampaian Coach Sabran sangat santai, bernas, dan mudah dipahami. Sangat membantu saya mengatasi grogi saat harus presentasi di depan klien korporasi."</p>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop" alt="Alumni" class="author-avatar">
+                    <div class="author-info">
+                        <h4>Ahmad Fauzan</h4>
+                        <p>Praktisi Bisnis & Karyawan Swasta</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimoni 3 -->
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Selain ilmu komunikasi yang luar biasa, sesi *character building*-nya benar-benar membakar semangat saya untuk berani mengambil tindakan nyata."</p>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&auto=format&fit=crop" alt="Alumni" class="author-avatar">
+                    <div class="author-info">
+                        <h4>Nurul Hidayah</h4>
+                        <p>Guru & Penggiat Literasi</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer" style="margin-top: 60px;">
+        <div class="footer-container">
+            <div class="footer-col">
+                <img src="Asset/Coach Sabran Fix.png" alt="Logo Coach Sabran" class="footer-logo">
+                <p>Ruang belajar untuk meningkatkan kapasitas dan kualitas sumber daya manusia secara berkesinambungan melalui program Character Building dan Properti Syariah.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Tautan Cepat</h3>
+                <ul>
+                    <li><a href="profil.html">Tentang Kami</a></li>
+                    <li><a href="kelas.html">Program Kelas</a></li>
+                    <li><a href="properti.html">Properti Syariah</a></li>
+                    <li><a href="jurnal.html">Jurnal Harian</a></li>
+                    <li><a href="event.html">Event Terdekat</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Hubungi Kami</h3>
+                <ul class="contact-info">
+                    <li>📍 Jl. Boulevard Raya No. 123, Panakkukang, Kota Makassar, Sulawesi Selatan</li>
+                    <li>📞 0812-XXXX-XXXX</li>
+                    <li>✉️ info@muhammad-sabran.com</li>
+                </ul>
+                <div class="social-links">
+                    <a href="#">Instagram</a>
+                    <a href="#">Facebook</a>
+                    <a href="#">YouTube</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Coach Sabran. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

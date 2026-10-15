@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Properti Syariah - Coach Sabran</title>
+    
+    <!-- Memanggil CSS Global -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- CSS Khusus untuk Halaman Properti (Layout 2 Kolom dengan Sidebar) -->
+    <style>
+        .page-header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .page-header p {
+            color: var(--accent-color);
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .property-page-container {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+
+        .section-title-main {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            margin-bottom: 25px;
+            border-left: 5px solid var(--primary-color);
+            padding-left: 15px;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .property-offer-card {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+            transition: transform 0.3s;
+            border: 1px solid #eee;
+        }
+
+        .property-offer-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .property-offer-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .property-offer-content {
+            padding: 20px;
+        }
+
+        .badge-group {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tag-badge {
+            background-color: #e2e8f0;
+            color: var(--text-dark);
+            font-size: 10px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        .property-offer-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .property-offer-desc {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .btn-property {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .btn-property:hover {
+            background-color: #b71c1c;
+        }
+
+        .articles-section {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+        }
+
+        .article-card-prop {
+            display: flex;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid #f1f5f9;
+            align-items: center;
+        }
+
+        .article-card-prop:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .article-prop-img {
+            width: 180px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        .article-prop-content {
+            flex: 1;
+        }
+
+        .article-prop-meta {
+            font-size: 11px;
+            color: var(--text-light);
+            margin-bottom: 5px;
+        }
+
+        .article-prop-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .article-prop-title:hover {
+            color: var(--primary-color);
+        }
+
+        .article-prop-desc {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        /* Sidebar Sisi Kanan (CTA & Reminder) */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .cta-card {
+            background: linear-gradient(135deg, var(--primary-color), #b71c1c);
+            color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(211, 47, 47, 0.2);
+        }
+
+        .cta-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+
+        .cta-card p {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #f1f5f9;
+        }
+
+        .btn-cta {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--text-dark);
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+
+        .btn-cta:hover {
+            transform: scale(1.05);
+        }
+
+        .reminder-box {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+        }
+
+        .reminder-box h4 {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 10px;
+        }
+
+        .reminder-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .reminder-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .reminder-date {
+            font-size: 12px;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .reminder-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-top: 3px;
+        }
+
+        /* Responsif Mobile */
+        @media (max-width: 900px) {
+            .property-page-container {
+                grid-template-columns: 1fr;
+            }
+            .article-card-prop {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .article-prop-img {
+                width: 100%;
+                height: 160px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP BAR & NAVBAR -->
+    <div class="top-bar">
+        <div class="top-bar-left"><span>Ikuti Sosial Media: @CoachSabran</span></div>
+        <div class="top-bar-right"><span>📞 Hubungi Kami: 0812-XXXX-XXXX</span></div>
+    </div>
+    <header>
+        <nav>
+            <a href="Mock-Up.html" class="logo">
+                <img src="Asset/Coach Sabran Fix.png" alt="Logo Coach Sabran">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="profil.html">Profil</a></li>
+                <li><a href="kelas.html">Kelas</a></li>
+                <li><a href="properti.html" style="color: var(--accent-color);">Properti</a></li>
+                <li><a href="jurnal.html">Jurnal</a></li>
+                <li><a href="event.html">Event</a></li>
+                <li><a href="pendaftaran.html" class="btn-nav">DAFTAR KELAS</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HEADER HALAMAN -->
+    <section class="page-header">
+        <h1>Properti Syariah</h1>
+        <p>Solusi Kepemilikan Hunian & Investasi Tanpa Riba</p>
+    </section>
+
+    <!-- CONTAINER UTAMA DENGAN SIDEBAR -->
+    <div class="property-page-container">
+        
+        <!-- KOLOM KIRI: PENAWARAN & ARTIKEL -->
+        <main>
+            <!-- Section 1: Penawaran Properti Dijual -->
+            <h2 class="section-title-main">Penawaran Properti Pilihan</h2>
+            <div class="featured-grid">
+                
+                <!-- Properti 1: Tanah Kavling Moncongloe -->
+                <div class="property-offer-card">
+                    <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=800&auto=format&fit=crop" alt="Tanah Kavling" class="property-offer-img">
+                    <div class="property-offer-content">
+                        <div class="badge-group">
+                            <span class="tag-badge">Jual Tanah Kavling</span>
+                            <span class="tag-badge" style="background-color: #fee2e2; color: #b91c1c;">Property Syariah</span>
+                        </div>
+                        <h3 class="property-offer-title">TANAH KAVLING MURAH DI MONCONGLOE MAROS</h3>
+                        <p class="property-offer-desc">Site Plan Tanah Kavling CV. Muhiddin Tahap 7. Lokasi strategis, akses mudah, dan transparan sesuai syariat.</p>
+                        <a href="#" class="btn-property">Lihat Detail & Brosur</a>
+                    </div>
+                </div>
+
+                <!-- Properti 2: Rumah 2 Lantai Pesantren -->
+                <div class="property-offer-card">
+                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=800&auto=format&fit=crop" alt="Rumah 2 Lantai" class="property-offer-img">
+                    <div class="property-offer-content">
+                        <div class="badge-group">
+                            <span class="tag-badge">Jual Rumah</span>
+                            <span class="tag-badge" style="background-color: #fee2e2; color: #b91c1c;">Property Syariah</span>
+                        </div>
+                        <h3 class="property-offer-title">DI JUAL RUMAH 2 LANTAI DI LOKASI PESANTREN</h3>
+                        <p class="property-offer-desc">Perumahan Relife Greenville Darul Istiqamah Maccopa Maros. Hunian islami yang nyaman dan berkah.</p>
+                        <a href="#" class="btn-property">Lihat Detail & Brosur</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Section Bawah: Artikel & Laporan Properti -->
+            <section class="articles-section">
+                <h2 class="section-title-main" style="margin-bottom: 20px;">Artikel & Laporan Properti Syariah</h2>
+                
+                <!-- Artikel 1 -->
+                <div class="article-card-prop">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=600&auto=format&fit=crop" alt="Gathering" class="article-prop-img">
+                    <div class="article-prop-content">
+                        <div class="article-prop-meta">Diposting oleh muhammad sabran - 18.53 | Property Syariah</div>
+                        <a href="#" class="article-prop-title">Gathering Marketing Assa'adah</a>
+                        <p class="article-prop-desc">Senin, 6 November 2023. Alhamdulillah senang sekali rasanya, hari ini bisa bersilaturahmi dan berdiskusi langsung...</p>
+                        <a href="#" class="btn-link">Baca selengkapnya &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Artikel 2 -->
+                <div class="article-card-prop">
+                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=600&auto=format&fit=crop" alt="Rasyf Hills" class="article-prop-img">
+                    <div class="article-prop-content">
+                        <div class="article-prop-meta">Diposting oleh muhammad sabran - 19.57 | Property Syariah</div>
+                        <a href="#" class="article-prop-title">Gathering Customer Perumahan Rasyf Hills</a>
+                        <p class="article-prop-desc">Mau Ki beli Rumah Syariah tapi Ragu Dengan proyek nya Krn tidak ada progres? Temukan jawabannya dalam laporan ini...</p>
+                        <a href="#" class="btn-link">Baca selengkapnya &rarr;</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- KOLOM KANAN: SIDEBAR (CTA & REMINDER) -->
+        <aside class="sidebar">
+            
+            <!-- Kotak CTA Pendaftaran -->
+            <div class="cta-card">
+                <h3>📅 Jadwal Konsultasi & Kelas</h3>
+                <p>Ingin berdiskusi seputar investasi properti syariah atau mengikuti kelas pengembangan diri?</p>
+                <a href="kelas.html" class="btn-cta">Amankan Kursi Anda</a>
+            </div>
+
+            <!-- Kotak Reminder Kegiatan Mendatang -->
+            <div class="reminder-box">
+                <h4>Pengingat Kegiatan</h4>
+                
+                <div class="reminder-item">
+                    <span class="reminder-date">24 Oktober 2026</span>
+                    <div class="reminder-title">Seminar Pemuda Berkarakter</div>
+                    <p style="font-size: 12px; color: var(--text-light); margin-top: 2px;">Hotel Claro Makassar</p>
+                </div>
+
+                <div class="reminder-item">
+                    <span class="reminder-date">05 November 2026</span>
+                    <div class="reminder-title">Gathering & Mentoring Batch #12</div>
+                    <p style="font-size: 12px; color: var(--text-light); margin-top: 2px;">I'M SMART Center</p>
+                </div>
+
+                <div class="reminder-item">
+                    <span class="reminder-date">20 November 2026</span>
+                    <div class="reminder-title">Workshop Public Speaking Online (WA)</div>
+                    <p style="font-size: 12px; color: var(--text-light); margin-top: 2px;">Live via WhatsApp & Zoom</p>
+                </div>
+            </div>
+
+        </aside>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer" style="margin-top: 60px;">
+        <div class="footer-container">
+            <div class="footer-col">
+                <img src="Asset/Coach Sabran Fix.png" alt="Logo Coach Sabran" class="footer-logo">
+                <p>Ruang belajar untuk meningkatkan kapasitas dan kualitas sumber daya manusia secara berkesinambungan melalui program Character Building dan Properti Syariah.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Tautan Cepat</h3>
+                <ul>
+                    <li><a href="profil.html">Tentang Kami</a></li>
+                    <li><a href="kelas.html">Program Kelas</a></li>
+                    <li><a href="properti.html">Properti Syariah</a></li>
+                    <li><a href="jurnal.html">Jurnal Harian</a></li>
+                    <li><a href="index.html#event">Event Terdekat</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Hubungi Kami</h3>
+                <ul class="contact-info">
+                    <li>📍 Jl. Boulevard Raya No. 123, Panakkukang, Kota Makassar, Sulawesi Selatan</li>
+                    <li>📞 0812-XXXX-XXXX</li>
+                    <li>✉️ info@muhammad-sabran.com</li>
+                </ul>
+                <div class="social-links">
+                    <a href="#">Instagram</a>
+                    <a href="#">Facebook</a>
+                    <a href="#">YouTube</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Coach Sabran. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
